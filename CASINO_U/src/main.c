@@ -29,7 +29,6 @@ int main(void)
     os_PutStrFull(buffer);
     os_SetCursorPos(1, 0);
     os_PutStrFull("Bet: ");
-    os_EnableCursor();
 
     // Retrieve digits
     do {
@@ -55,13 +54,11 @@ int main(void)
         // Delete key
         } else if (key == 10 && i > 0) {
           i--;
-          os_DisableCursor();
           number[i] = '\0';
           os_GetCursorPos(&row, &col);
           os_SetCursorPos(row, col-1);
           os_PutStrFull(" ");
           os_SetCursorPos(row, col-1);
-          os_EnableCursor();
 
         // Delete key after bet
         } else if (key == 10 && i == 0) {
@@ -87,7 +84,6 @@ int main(void)
     } while (bet == 0 || bet > money);
 
     // Init for random numbers
-    os_DisableCursor();
     os_NewLine();
     os_PutStrFull("Numbers : ");
     pay = 0; money -= bet;
@@ -159,8 +155,6 @@ int main(void)
     if (money == 0) {
       os_SetCursorPos(6, 0);
       os_PutStrFull("No money!");
-      os_SetCursorPos(8, 0);
-      os_PutStrFull("No bitches!");
       while (!os_GetCSC());
       return 0;
     } else if (money < 0) {
